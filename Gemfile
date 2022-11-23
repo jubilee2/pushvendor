@@ -21,7 +21,7 @@ gem 'jbuilder', '2.4.1'
 # -----------------------------------------
 # Authentication and Permissions
 # -----------------------------------------
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
+gem 'devise', '4.1.0'
 gem 'cancancan', '1.13.1'
 
 
@@ -39,7 +39,7 @@ end
 
 group :development, :test do
   gem 'spring', '1.6.3'
-  gem 'byebug', '8.2.2'
+  gem 'byebug', platform: :mri
   gem 'rspec-rails', '3.1.0'
   gem 'factory_girl_rails', '4.6.0'
   gem 'faker', '1.6.3'
