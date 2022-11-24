@@ -247,7 +247,10 @@ GEM
     sdoc (2.4.0)
       rdoc (>= 5.0)
     shellany (0.0.1)
-    spring (4.1.0)
+    spring (2.1.1)
+    spring-watcher-listen (2.0.1)
+      listen (>= 2.7, < 4.0)
+      spring (>= 1.2, < 3.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -313,6 +316,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc
   spring
+  spring-watcher-listen (~> 2.0.0)
   sqlite3 (~> 1.3.6)
   turbolinks (~> 5)
   tzinfo-data
