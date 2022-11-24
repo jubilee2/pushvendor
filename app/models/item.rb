@@ -1,4 +1,4 @@
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
 	has_many :line_items
 	belongs_to :item_category
 
