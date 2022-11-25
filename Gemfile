@@ -5,9 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+ruby '2.7.2'
 
-gem 'rails', '~> 5.1.7'
-gem 'puma', '~> 3.7'
+gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
+gem 'puma', '~> 3.11'
 gem 'pg'
 
 # -----------------------------------------
@@ -40,6 +41,10 @@ gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate-bootstrap', '1.0.1'
 
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
+
 group :doc do
   gem 'sdoc', require: false
 end
@@ -51,8 +56,15 @@ group :development, :test do
   gem 'faker'
   gem 'database_cleaner', '1.5.1'
   gem 'letter_opener', '1.4.1'
-  gem 'capybara', '>= 2.15'
   gem 'sqlite3', '~> 1.3.6'
+end
+
+group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
 end
 
 group :development do
