@@ -1,5 +1,5 @@
 class Sale < ApplicationRecord
-  belongs_to :customer
+  belongs_to :customer, optional: true
   has_many :line_items, dependent: :destroy
   has_many :items, through: :line_items
   has_many :connections, through: :customer
