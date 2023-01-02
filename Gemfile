@@ -51,7 +51,7 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '3.1.0'
+  gem 'rspec-rails', '~> 4.1.0'
   gem 'factory_girl_rails', '4.6.0'
   gem 'faker'
   gem 'database_cleaner', '1.5.1'
@@ -68,8 +68,8 @@ group :test do
 end
 
 group :development do
-  gem 'better_errors', '2.1.1'
-  gem 'binding_of_caller', '0.7.2'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'web-console'
   gem 'guard-rails', '0.7.2', require: false
   gem 'rubocop', '0.37.2', require: false
