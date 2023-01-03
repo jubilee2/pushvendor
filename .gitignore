@@ -70,3 +70,5 @@ pickle-email-*.html
 /config/application.yml
 
 /node_modules/
+cms_test
+db/development.sqlite3
