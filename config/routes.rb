@@ -11,8 +11,6 @@ PushvendorPos::Application.routes.draw do
     end
   end
 
-  resources :line_items
-
   resources :payments do
     collection do
       get 'make_payment'
