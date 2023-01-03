@@ -29,12 +29,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    if user_params[:password].blank?
-      user_params.delete('password')
-      user_params.delete('password_confirmation')
-    end
+    p = user_params[:password].blank? ? user_without_password_params : user_params
 
-    if @user.update(user_params)
+    if @user.update(p)
       flash[:notice] = 'User was successfully updated.'
       redirect_to @user
     else
@@ -65,6 +62,18 @@ class UsersController < ApplicationController
                                  :username,
                                  :password,
                                  :password_confirmation,
+                                 :remember_me,
+                                 :can_update_users,
+                                 :can_update_items,
+                                 :can_update_configuration,
+                                 :can_view_reports,
+                                 :can_update_sale_discount,
+                                 :can_remove_sales)
+  end
+  
+  def user_without_password_params
+    params.require(:user).permit(:email,
+                                 :username,
                                  :remember_me,
                                  :can_update_users,
                                  :can_update_items,
