@@ -11,8 +11,6 @@ PushvendorPos::Application.routes.draw do
     end
   end
 
-  resources :line_items
-
   resources :payments do
     collection do
       get 'make_payment'
@@ -58,11 +56,7 @@ PushvendorPos::Application.routes.draw do
   end
 
   devise_for :users
-  resources :users do
-    collection do
-      post 'new_user'
-    end
-  end
+  resources :users
 
   root 'dashboard#index'
 end

@@ -1,2 +1,2 @@
-class StoreConfiguration < ActiveRecord::Base
+class StoreConfiguration < ApplicationRecord
 end
