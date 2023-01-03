@@ -43,6 +43,6 @@ module ApplicationHelper
   end
 
   def config
-    StoreConfiguration.last
+    @configurations
   end
 end
