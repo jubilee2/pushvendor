@@ -18,21 +18,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      flash[:notice] = 'User was successfully created.'
-      redirect_to @user
-    else
-      render action: 'new'
-    end
-  end
-
-  def new_user
-    @user = User.new(email: params[:user][:email],
-                     username: params[:user][:username],
-                     password: params[:user][:password],
-                     password_confirmation: params[:user][:password_confirmation])
+    @user = User.new(new_user_params)
 
     if @user.save
       flash[:notice] = 'User was successfully created.'
@@ -86,5 +72,12 @@ class UsersController < ApplicationController
                                  :can_view_reports,
                                  :can_update_sale_discount,
                                  :can_remove_sales)
+  end
+
+  def new_user_params
+    params.require(:user).permit(:email,
+                                 :username,
+                                 :password,
+                                 :password_confirmation)
   end
 end

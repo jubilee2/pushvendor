@@ -58,11 +58,7 @@ PushvendorPos::Application.routes.draw do
   end
 
   devise_for :users
-  resources :users do
-    collection do
-      post 'new_user'
-    end
-  end
+  resources :users
 
   root 'dashboard#index'
 end
