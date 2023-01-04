@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on('turbolinks:load', function(){
 
 	$(document).on("keypress", '.item_search_input', function(){
 	  $('.item_search').click();

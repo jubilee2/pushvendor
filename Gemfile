@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
-
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
@@ -70,7 +66,8 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console'
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'guard-rails', '0.7.2', require: false
   gem 'rubocop', '0.37.2', require: false
   gem 'guard-rubocop', '1.2.0'
