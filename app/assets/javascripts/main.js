@@ -44,56 +44,6 @@ $(document).on('turbolinks:load', function(){
   	// alert('price');
 	});
 
-
-	// Jquery form validations
-	$(".form_custom_item").validate({
-		rules: {
-			"custom_item[name]": {required: true },
-			"custom_item[price]": {required: true, number: true},
-			"custom_item[stock_amount]": {required: true, number: true}
-		}
-	});
-
-	$(".edit_sale").validate({
-		rules: {
-			"line_item[price]": {required: true, number: true }
-		}
-	});
-
-	$("#new_item").validate({
-		rules: {
-			"item[sku]": {required: true },
-			"item[name]": {required: true },
-			"item[price]": {required: true, number: true },
-			"item[stock_amount]": {required: true, number: true },
-			"item[cost_price]": {required: true, number: true }
-		}
-	});
-
-	$("#new_user").validate({
-		rules: {
-			"user[email]": {required: true, email: true },
-			"user[username]": {required: true },
-			"user[password]": {required: true }
-		}
-	});
-
-	$("#new_customer").validate({
-		rules: {
-			"customer[first_name]": {required: true },
-			"customer[last_name]": {required: true },
-			"customer[email_address]": {email: true }
-		}
-	});
-
-	$("#create_custom_customer").validate({
-		rules: {
-			"custom_customer[first_name]": {required: true },
-			"custom_customer[last_name]": {required: true },
-			"custom_customer[email_address]": {email: true }
-		}
-	});
-
 	// creates a line item for a sale
 	var input = $('#search_item_name')[0];
 	var sale_id = $('#search_sale_id')[0];
