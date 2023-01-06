@@ -41,11 +41,11 @@ class SalesController < ApplicationController
     populate_items
 
     if params[:search][:item_category].blank?
-      @available_items = Item.all.where('name ILIKE ? AND published = true OR description ILIKE ? AND published = true OR sku ILIKE ? AND published = true', "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%").limit(5)
+      @available_items = Item.all.where('name LIKE ? AND published = true OR description LIKE ? AND published = true OR sku LIKE ? AND published = true', "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%").limit(5)
     elsif params[:search][:item_name].blank?
       @available_items = Item.where(item_category_id: params[:search][:item_category]).limit(5)
     else
-      @available_items = Item.all.where('name ILIKE ? AND published = true AND item_category_id = ? OR description ILIKE ? AND published = true AND item_category_id = ? OR sku ILIKE ? AND published = true AND item_category_id = ?', "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}", "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}", "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}").limit(5)
+      @available_items = Item.all.where('name LIKE ? AND published = true AND item_category_id = ? OR description LIKE ? AND published = true AND item_category_id = ? OR sku LIKE ? AND published = true AND item_category_id = ?', "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}", "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}", "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}").limit(5)
     end
 
     respond_to do |format|
@@ -56,7 +56,7 @@ class SalesController < ApplicationController
   def update_customer_options
     set_sale
     populate_items
-    @available_customers = Customer.all.where('last_name ILIKE ? AND published = true OR first_name ILIKE ? AND published = true OR email_address ILIKE ? AND published = true OR phone_number ILIKE ? AND published = true', "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%").limit(5)
+    @available_customers = Customer.all.where('last_name LIKE ? AND published = true OR first_name LIKE ? AND published = true OR email_address LIKE ? AND published = true OR phone_number LIKE ? AND published = true', "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%").limit(5)
 
     respond_to do |format|
       format.js { ajax_refresh }
