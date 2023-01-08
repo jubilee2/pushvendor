@@ -1,16 +1,23 @@
 $(document).on('turbolinks:load', function(){
 
+  var item_search_timeoutId = 0;
 	$(document).on("keypress", '.item_search_input', function(){
-	  $('.item_search').click();
-
+    clearTimeout(item_search_timeoutId); // doesn't matter if it's 0
+    item_search_timeoutId = setTimeout(function(){
+      $('.item_search').click();
+    }, 500);
 	});
 
 	$(document).on("change", '.item_category_search_input', function(){
 	  $('.item_search').click();
 	});
 
+  var customer_search_timeoutId = 0;
 	$(document).on("keypress", '.customer_search_input', function(){
-	  $('.customer_search').click();
+    clearTimeout(customer_search_timeoutId); // doesn't matter if it's 0
+    customer_search_timeoutId = setTimeout(function(){
+      $('.customer_search').click();
+    }, 500);
 	});
 
 	$(document).on("change", "#sale_comments_comments", function(){
