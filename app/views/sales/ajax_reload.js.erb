@@ -9,10 +9,11 @@ $('#customItem .modal-body').html("<%= escape_javascript render(:file => 'sales/
 $('#customCustomer .modal-body').html("<%= escape_javascript render(:file => 'sales/shared/_create_custom_customer.html.erb') %>");
 
 $('.print_totals').html("<%= escape_javascript render(:file => 'sales/shared/_invoice_totals.html.erb') %>");
-$('.searched_items').html("<%= escape_javascript render(:file => 'sales/shared/_searched_items.html.erb') %>");
-
-$('.searched_customers').html("<%= escape_javascript render(:file => 'sales/shared/_searched_customers.html.erb') %>");
 
 $('#sale_timestamp').html("<%= escape_javascript render(:file => 'sales/shared/_sale_timestamp.html.erb') %>");
 
 $('.edit_sale').show();
+
+// Close modal
+$("#customCustomer").modal('hide')
+$("#customItem").modal('hide')

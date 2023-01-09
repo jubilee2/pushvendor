@@ -4,6 +4,7 @@ PushvendorPos::Application.routes.draw do
 
   authenticated :user do
     resources :item_categories
+    resources :items
   
     resources :reports do
       collection do
@@ -14,41 +15,30 @@ PushvendorPos::Application.routes.draw do
       end
     end
   
-    resources :payments do
-      collection do
-        get 'make_payment'
-      end
-    end
-  
-    resources :configurations do 
-      collection do 
-        get 'update'
-      end
-    end
+    # configurations
+    get '/configurations', to: 'configurations#index'
+    patch '/configurations', to: 'configurations#update'
   
     resources :customers
-  
-    resources :items do
-      get 'search'
-      collection do
-        get 'search'
-      end
-    end
-  
+    
     resources :sales do
-      collection do
-        get 'update_line_item_options'
-        get 'update_customer_options'
-        get 'create_line_item'
-        get 'update_totals'
-        get 'add_item'
-        get 'remove_item'
-        get 'create_customer_association'
-        get 'create_custom_item'
-        get 'create_custom_customer'
-        get 'add_comment'
-        post 'override_price'
-        post 'sale_discount'
+      member do
+        defaults format: :js do
+          post 'update_line_item_options'
+          post 'update_customer_options'
+          post 'create_line_item'
+          # post 'update_totals'
+          post 'add_item'
+          post 'remove_item'
+          post 'create_customer_association'
+          post 'create_custom_item'
+          post 'create_custom_customer'
+          patch 'add_comment'
+          patch 'override_price'
+          patch 'sale_discount'
+
+          post 'make_payment'
+        end
       end
     end
   
@@ -59,7 +49,7 @@ PushvendorPos::Application.routes.draw do
     end
   
     resources :users
-  
+    
   end
 
 end

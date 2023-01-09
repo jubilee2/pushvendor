@@ -8,19 +8,15 @@
 </div>
 
 <label>Discount</label>
+<%= form_for @sale, :url => sale_discount_sale_path, remote: true do |f| %>
+  <div class="input-group">
+    <%= f.select :discount, Sale.discount_ranges, {}, {:onchange => "$(this.form).find('input[type=""submit""]').click();",:class => "form-control"} %>
+    <span class="input-group-addon"><%= config.currency %><%= @sale.discount.blank? ? 0 : number_to_currency(@sale.get_discounted_amount, unit: '') %></span>
+  </div>
 
-<div class="input-group">
-  <select id="sale_discount" class="form-control sale-discount">
-  	<% 0.step(100, 5) do |disc| %>
-  		<% dec_discount = (disc.to_d / 100).to_s %>
-  		<option value="<%= dec_discount %>" 
-  				<%= @sale.discount.to_s == dec_discount ? "selected" : nil %>>
-  				<%= disc.to_s + "%" %>
-  		</option>
-  	<% end %>
-  </select>
-  <span class="input-group-addon"><%=config.currency %><%= @sale.discount.blank? ? 0 : number_to_currency(@sale.get_discounted_amount, unit: '') %></span>
-</div>
+  <%= submit_tag "submit", :class => "btn btn-primary btn-lg hidden" %>
+
+<% end %>
 
 <label>Tax(<%= config.tax_rate.blank? ? 'not configured' : config.tax_rate %>)</label>
 <div class="input-group">

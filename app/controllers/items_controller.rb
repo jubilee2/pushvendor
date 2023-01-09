@@ -43,10 +43,6 @@ class ItemsController < ApplicationController
     redirect_to items_url
   end
 
-  def search
-    @items = Item.all.where('name LIKE ?', "%#{params[:search][:item_name]}%")
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

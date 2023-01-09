@@ -1,4 +1,6 @@
 class SalesController < ApplicationController
+  load_resource
+
   def index
     @sales = Sale.paginate(page: params[:page], per_page: 2).order('id DESC')
   end
@@ -13,12 +15,6 @@ class SalesController < ApplicationController
 
     populate_items
     populate_customers
-
-    @sale.line_items.build
-    @sale.payments.build
-
-    @custom_item = Item.new
-    @custom_customer = Customer.new
   end
 
   def destroy
@@ -49,7 +45,7 @@ class SalesController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { ajax_refresh }
+      format.js
     end
   end
 
@@ -59,7 +55,7 @@ class SalesController < ApplicationController
     @available_customers = Customer.all.where('last_name LIKE ? AND published = true OR first_name LIKE ? AND published = true OR email_address LIKE ? AND published = true OR phone_number LIKE ? AND published = true', "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%").limit(5)
 
     respond_to do |format|
-      format.js { ajax_refresh }
+      format.js 
     end
   end
 
@@ -84,7 +80,7 @@ class SalesController < ApplicationController
     existing_line_item = LineItem.where('item_id = ? AND sale_id = ?', params[:item_id], @sale.id).first
 
     if existing_line_item.blank?
-      line_item = LineItem.new(item_id: params[:item_id], sale_id: params[:sale_id], quantity: params[:quantity])
+      line_item = LineItem.new(item_id: params[:item_id], sale_id: @sale.id, quantity: 1)
       line_item.price = line_item.item.price
       line_item.save
 
@@ -110,13 +106,12 @@ class SalesController < ApplicationController
     set_sale
     populate_items
 
-    line_item = LineItem.where(sale_id: params[:sale_id], item_id: params[:item_id]).first
+    line_item = LineItem.where(sale_id: @sale.id, item_id: params[:item_id]).first
     line_item.quantity -= 1
     if line_item.quantity <= 0
       line_item.destroy
     else
       line_item.save
-      update_line_item_totals(line_item)
     end
 
     return_item_to_stock(params[:item_id], 1)
@@ -133,12 +128,11 @@ class SalesController < ApplicationController
     set_sale
     populate_items
 
-    line_item = LineItem.where(sale_id: params[:sale_id], item_id: params[:item_id]).first
+    line_item = LineItem.where(sale_id: @sale.id, item_id: params[:item_id]).first
     line_item.quantity += 1
     line_item.save
 
     remove_item_from_stock(params[:item_id], 1)
-    update_line_item_totals(line_item)
 
     update_totals
 
@@ -151,13 +145,11 @@ class SalesController < ApplicationController
     set_sale
     populate_items
 
-    custom_item = Item.new
+    custom_item = Item.new(params.require(:item).permit(
+      :name, :description, :item_category_id,
+      :price, :stock_amount))
+
     custom_item.sku = "CI#{(rand(5..30) + rand(5..30)) * 11}_#{(rand(5..30) + rand(5..30)) * 11}"
-    custom_item.name = params[:custom_item][:name]
-    custom_item.description = params[:custom_item][:description]
-    custom_item.price = params[:custom_item][:price]
-    custom_item.stock_amount = params[:custom_item][:stock_amount]
-    custom_item.item_category_id = params[:custom_item][:item_category_id]
 
     custom_item.save
 
@@ -165,7 +157,6 @@ class SalesController < ApplicationController
                                     sale_id: @sale.id,
                                     quantity: custom_item.stock_amount,
                                     price: custom_item.price)
-    custom_line_item.total_price = custom_item.price * custom_item.stock_amount
     custom_line_item.save
 
     update_totals
@@ -179,19 +170,14 @@ class SalesController < ApplicationController
     set_sale
     populate_items
 
-    custom_customer = Customer.new
-    custom_customer.first_name = params[:custom_customer][:first_name]
-    custom_customer.last_name = params[:custom_customer][:last_name]
-    custom_customer.email_address = params[:custom_customer][:email_address]
-    custom_customer.phone_number = params[:custom_customer][:phone_number]
-    custom_customer.address = params[:custom_customer][:address]
-    custom_customer.city = params[:custom_customer][:city]
-    custom_customer.state = params[:custom_customer][:state]
-    custom_customer.zip = params[:custom_customer][:zip]
+    customer = Customer.new(params.require(:customer).permit(
+      :first_name, :last_name,
+      :phone_number, :email_address,
+      :address, :city, :state, :zip))
 
-    custom_customer.save
+    customer.save
 
-    @sale.add_customer(custom_customer.id)
+    @sale.update customer: customer
 
     update_totals
 
@@ -202,18 +188,15 @@ class SalesController < ApplicationController
 
   # update Total For Line Items
   def update_line_item_totals(line_item)
-    line_item.total_price = line_item.price * line_item.quantity
+    line_item.flash_total_price
     line_item.save
   end
 
   def override_price
-    @sale = Sale.find(params[:override_price][:sale_id])
-    item = Item.where(sku: params[:override_price][:line_item_sku]).first
-    line_item = LineItem.where(sale_id: params[:override_price][:sale_id], item_id: item.id).first
-    line_item.price = params[:override_price][:price].gsub('$', '')
+    line_item = @sale.line_items.where(item_id: params[:line_item][:item_id]).first
+    line_item.price = params[:line_item][:price].gsub(@configurations.currency, '')
     line_item.save
 
-    update_line_item_totals(line_item)
     update_totals
 
     respond_to do |format|
@@ -222,9 +205,7 @@ class SalesController < ApplicationController
   end
 
   def sale_discount
-    @sale = Sale.find(params[:sale_discount][:sale_id])
-
-    @sale.discount = params[:sale_discount][:discount]
+    @sale.discount = params[:sale][:discount]
     @sale.save
 
     update_totals
@@ -268,12 +249,17 @@ class SalesController < ApplicationController
   end
 
   def add_comment
-    set_sale
-    @sale.comments = params[:sale_comments][:comments]
-    @sale.save
+    @sale.update(params.require(:sale).permit(:comments))
 
     respond_to do |format|
       format.js { ajax_refresh }
+    end
+  end
+
+  def make_payment
+    @sale.payments.create(params.require(:payment).permit(:payment_type, :amount))
+    respond_to do |format|
+      format.js
     end
   end
 

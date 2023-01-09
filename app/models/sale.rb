@@ -9,6 +9,13 @@ class Sale < ApplicationRecord
   accepts_nested_attributes_for :items, allow_destroy: true
   accepts_nested_attributes_for :payments, allow_destroy: true
 
+  def self.discount_ranges
+    0.step(100, 5).collect do |disc| 
+      dec_discount = (disc.to_d / 100).to_s 
+      ["#{disc} %" ,dec_discount]
+     end 
+  end
+
   def remaining_balance
     if self.total_amount.blank?
       balance = 0.00
@@ -24,7 +31,7 @@ class Sale < ApplicationRecord
   end
 
   def get_discounted_amount
-    self.total_amount * self.discount
+    self.amount * self.discount
   end
 
   def paid_total
@@ -47,10 +54,5 @@ class Sale < ApplicationRecord
         return 0.00
       end
     end
-  end
-
-  def add_customer(customer_id)
-    self.customer_id = customer_id
-    self.save
   end
 end
