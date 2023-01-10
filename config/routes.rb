@@ -27,7 +27,6 @@ PushvendorPos::Application.routes.draw do
           post 'update_line_item_options'
           post 'update_customer_options'
           post 'create_line_item'
-          # post 'update_totals'
           post 'add_item'
           post 'remove_item'
           post 'create_customer_association'

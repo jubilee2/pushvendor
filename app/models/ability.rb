@@ -12,19 +12,20 @@ class Ability
     end
 
     if user.can_view_reports == true
-        # can :manage, Report
-    end
-
-    if user.can_update_sale_discount == true
+        can :manage, :reports
     end
 
     can :manage, Sale
     unless user.can_remove_sales == true
       cannot :destroy, Sale
     end
+    unless user.can_update_sale_discount == true
+      cannot :sale_discount, Sale
+    end
 
     if user.can_update_items == true
       can :manage, ItemCategory
+      can :manage, Item
     end
 
 
