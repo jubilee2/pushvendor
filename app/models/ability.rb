@@ -18,8 +18,9 @@ class Ability
     if user.can_update_sale_discount == true
     end
 
-    if user.can_remove_sales == true
-        can :manage, Sale
+    can :manage, Sale
+    unless user.can_remove_sales == true
+      cannot :destroy, Sale
     end
 
     if user.can_update_items == true
