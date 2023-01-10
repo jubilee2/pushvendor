@@ -69,8 +69,8 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'guard-rails', '0.7.2', require: false
-  gem 'rubocop', '0.37.2', require: false
-  gem 'guard-rubocop', '1.2.0'
+  gem 'rubocop', '~> 1.42', require: false
+  gem 'guard-rubocop'
   gem 'guard-rspec', '4.6.4', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
