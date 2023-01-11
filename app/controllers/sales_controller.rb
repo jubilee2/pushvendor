@@ -17,7 +17,7 @@ class SalesController < ApplicationController
 
   def destroy
     @sale.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to sales_url, notice: 'Sale has been deleted.' }
     end
@@ -25,7 +25,6 @@ class SalesController < ApplicationController
 
   # searched Items
   def update_line_item_options
-
     if params[:search][:item_category].blank?
       @available_items = Item.all.where('name LIKE ? AND published = true OR description LIKE ? AND published = true OR sku LIKE ? AND published = true', "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%").limit(5)
     elsif params[:search][:item_name].blank?
@@ -40,16 +39,14 @@ class SalesController < ApplicationController
   end
 
   def update_customer_options
-
     @available_customers = Customer.all.where('last_name LIKE ? AND published = true OR first_name LIKE ? AND published = true OR email_address LIKE ? AND published = true OR phone_number LIKE ? AND published = true', "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%").limit(5)
 
     respond_to do |format|
-      format.js 
+      format.js
     end
   end
 
   def create_customer_association
-
     unless params[:customer_id].blank?
       @sale.customer_id = params[:customer_id]
       @sale.save
@@ -62,7 +59,6 @@ class SalesController < ApplicationController
 
   # Add a searched Item
   def create_line_item
-
     existing_line_item = @sale.line_items.where(item_id: params[:item_id]).first
 
     if existing_line_item.blank?
@@ -70,13 +66,12 @@ class SalesController < ApplicationController
       line_item.price = line_item.item.price
       line_item.save
 
-      remove_item_from_stock(params[:item_id], 1)
     else
       existing_line_item.quantity += 1
       existing_line_item.save
 
-      remove_item_from_stock(params[:item_id], 1)
     end
+    remove_item_from_stock(params[:item_id], 1)
 
     update_totals
 
@@ -87,7 +82,6 @@ class SalesController < ApplicationController
 
   # Remove Item
   def remove_item
-
     line_item = @sale.line_items.where(item_id: params[:item_id]).first
     line_item.quantity -= 1
     if line_item.quantity <= 0
@@ -107,7 +101,6 @@ class SalesController < ApplicationController
 
   # Add one Item
   def add_item
-
     line_item = @sale.line_items.where(item_id: params[:item_id]).first
     line_item.quantity += 1
     line_item.save
@@ -122,10 +115,10 @@ class SalesController < ApplicationController
   end
 
   def create_custom_item
-
     custom_item = Item.new(params.require(:item).permit(
-      :name, :description, :item_category_id,
-      :price, :stock_amount))
+                             :name, :description, :item_category_id,
+                             :price, :stock_amount
+                           ))
 
     custom_item.sku = "CI#{(rand(5..30) + rand(5..30)) * 11}_#{(rand(5..30) + rand(5..30)) * 11}"
 
@@ -144,11 +137,11 @@ class SalesController < ApplicationController
   end
 
   def create_custom_customer
-
     customer = Customer.new(params.require(:customer).permit(
-      :first_name, :last_name,
-      :phone_number, :email_address,
-      :address, :city, :state, :zip))
+                              :first_name, :last_name,
+                              :phone_number, :email_address,
+                              :address, :city, :state, :zip
+                            ))
 
     customer.save
 
@@ -188,7 +181,7 @@ class SalesController < ApplicationController
 
     @sale.amount = 0.00
 
-    for line_item in @sale.line_items
+    @sale.line_items.each do |line_item|
       @sale.amount += line_item.total_price
     end
 

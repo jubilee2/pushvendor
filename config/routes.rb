@@ -5,7 +5,7 @@ PushvendorPos::Application.routes.draw do
   authenticated :user do
     resources :item_categories
     resources :items
-  
+
     resources :reports do
       collection do
         get 'total_report'
@@ -14,13 +14,13 @@ PushvendorPos::Application.routes.draw do
         get 'item_report'
       end
     end
-  
+
     # configurations
     get '/configurations', to: 'configurations#index'
     patch '/configurations', to: 'configurations#update'
-  
+
     resources :customers
-    
+
     resources :sales do
       member do
         defaults format: :js do
@@ -40,15 +40,13 @@ PushvendorPos::Application.routes.draw do
         end
       end
     end
-  
+
     resources :dashboard do
       collection do
         get 'create_sale_with_product'
       end
     end
-  
-    resources :users
-    
-  end
 
+    resources :users
+  end
 end
