@@ -1,0 +1,5 @@
+$('#customCustomer .modal-body').html("<%= escape_javascript render(:file => 'sales/shared/_create_custom_customer.html.erb') %>");
+
+$('.added_customer').html("<%= escape_javascript render(:file => 'sales/shared/_added_customer.html.erb') %>");
+
+$("#customCustomer").modal('hide')

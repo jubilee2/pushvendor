@@ -16,19 +16,11 @@ class DashboardController < ApplicationController
 
     price = (item.price * params[:quantity].to_i)
 
-    @sale.tax = price * get_tax_rate
+    @sale.tax = price * @configurations.get_tax_rate
     @sale.amount = price
-    @sale.total_amount = price + (price * get_tax_rate)
+    @sale.total_amount = price + (price * @configurations.get_tax_rate)
     @sale.save
 
     redirect_to controller: 'sales', action: 'edit', id: @sale.id
-  end
-
-  def get_tax_rate
-    if @configurations.tax_rate.blank?
-      return 0.00
-    else
-      return @configurations.tax_rate.to_f * 0.01
-    end
   end
 end

@@ -20,7 +20,7 @@
             <td><%= customer.first_name %></td>
             <td><%= customer.phone_number %></td>
             <td><%= customer.email_address %></td>
-            <td class="add_to_current_sale"><%= link_to url_for(:controller => 'sales', :action => 'create_customer_association', :customer_id => customer.id, :sale_id => @sale.id), :remote => true do %><p><span class="glyphicon glyphicon-plus"></span></p><% end %></td>
+            <td class="add_to_current_sale"><%= link_to create_customer_association_sale_path(@sale), method: :post, :remote => true, data: {params: "customer_id=#{customer.id}"} do %><p><span class="glyphicon glyphicon-plus"></span></p><% end %></td>
           </tr>
         <% end %>
       <% end %>

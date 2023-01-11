@@ -25,6 +25,6 @@ FactoryGirl.define do
   factory :payment do
     sale_id 1
     amount 15.0
-    payment_type "cash"
+    payment_type 'cash'
   end
 end
