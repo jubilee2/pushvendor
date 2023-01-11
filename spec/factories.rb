@@ -27,4 +27,18 @@ FactoryGirl.define do
     amount 15.0
     payment_type 'cash'
   end
+
+  factory :item do
+    name { Faker::Book.unique.title }
+    sku { Faker::Number.unique.number(digits: 10) }
+    price { Faker::Number.decimal(l_digits: 2) }
+    stock_amount { rand(20) }
+  end
+
+  factory :line_item do
+    item
+    sale
+    price { Faker::Number.decimal(l_digits: 2) }
+    quantity { rand(20) }
+  end
 end
