@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.4'
 
 gem 'rails', '~> 6.1.0'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 5.0'
 gem 'pg'
 
 # -----------------------------------------
@@ -19,7 +19,7 @@ gem 'turbolinks', '~> 5'
 # Formating Utilities
 # -----------------------------------------
 gem 'uglifier', '>= 1.3.0'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.7'
 
 
 # -----------------------------------------
@@ -32,13 +32,13 @@ gem 'cancancan'
 # -----------------------------------------
 # Layout and Rendering
 # -----------------------------------------
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '>= 6'
 gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate-bootstrap', '1.0.1'
 
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.4', require: false
 
 
 group :doc do
@@ -57,7 +57,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
+  gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'webdrivers', '~> 5.0', require: false
@@ -66,8 +66,9 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 4.1.0'
+  gem 'rack-mini-profiler', '~> 2.0'
+  gem 'listen', '~> 3.3'
   gem 'guard-rails', '0.7.2', require: false
   gem 'rubocop', '~> 1.42', require: false
   gem 'guard-rubocop'
