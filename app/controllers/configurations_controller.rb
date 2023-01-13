@@ -1,26 +1,21 @@
 class ConfigurationsController < ApplicationController
+  before_action :set_and_authorize_configuration
   def index
-    @configuration = StoreConfiguration.last
-    authorize! :read, @configuration
   end
 
   def update
-    set_configuration
-    authorize! :read, @configuration
-
     if @configuration.update(configuration_params)
       flash[:notice] = 'Configurations have been successfully updated.'
-      redirect_to '/configurations'
-    else
-      render controller: 'configurations'
     end
+    render action: 'index'
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_configuration
+  def set_and_authorize_configuration
     @configuration = @configurations
+    authorize! :read, @configuration
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

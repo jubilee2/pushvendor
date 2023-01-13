@@ -53,7 +53,7 @@ class SalesController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render(file: 'sales/update_customer_association.js') }
+      format.js { render :update_customer_association }
     end
   end
 
@@ -148,7 +148,7 @@ class SalesController < ApplicationController
     @sale.update customer: customer
 
     respond_to do |format|
-      format.js { render(file: 'sales/update_customer_association.js') }
+      format.js { render :update_customer_association }
     end
   end
 
@@ -216,7 +216,7 @@ class SalesController < ApplicationController
   private
 
   def ajax_refresh
-    render(file: 'sales/ajax_reload.js.erb')
+    render :ajax_reload
   end
 
   def remove_item_from_stock(item_id, quantity)
