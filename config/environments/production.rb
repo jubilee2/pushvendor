@@ -1,4 +1,4 @@
-PushvendorPos::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -38,10 +38,10 @@ PushvendorPos::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
-  # Store uploaded files on the local file system (see config/storage.yml for options)
+  # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Mount Action Cable outside main process or domain
+  # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
@@ -62,9 +62,9 @@ PushvendorPos::Application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment)
+  # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "test-5_2_#{Rails.env}"
+  # config.active_job.queue_name_prefix = "pushvendor_pos_production"
 
   config.action_mailer.perform_caching = false
 
@@ -97,4 +97,25 @@ PushvendorPos::Application.configure do
 
   # for Devise
   config.action_mailer.default_url_options = { :host => 'http://www.example.com' }
+
+  # Inserts middleware to perform automatic connection switching.
+  # The `database_selector` hash is used to pass options to the DatabaseSelector
+  # middleware. The `delay` is used to determine how long to wait after a write
+  # to send a subsequent read to the primary.
+  #
+  # The `database_resolver` class is used by the middleware to determine which
+  # database is appropriate to use based on the time delay.
+  #
+  # The `database_resolver_context` class is used by the middleware to set
+  # timestamps for the last write to the primary. The resolver uses the context
+  # class timestamps to determine how long to wait before reading from the
+  # replica.
+  #
+  # By default Rails will store a last write timestamp in the session. The
+  # DatabaseSelector middleware is designed as such you can define your own
+  # strategy for connection switching and pass that into the middleware through
+  # these configuration options.
+  # config.active_record.database_selector = { delay: 2.seconds }
+  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end

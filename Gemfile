@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
-gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
+gem 'rails', '~> 6.0.0'
 gem 'puma', '~> 3.11'
 gem 'pg'
 
@@ -52,7 +52,7 @@ group :development, :test do
   gem 'faker'
   gem 'database_cleaner', '1.5.1'
   gem 'letter_opener', '1.4.1'
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3', '~> 1.4'
 end
 
 group :test do
