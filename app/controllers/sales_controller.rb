@@ -59,19 +59,15 @@ class SalesController < ApplicationController
 
   # Add a searched Item
   def create_line_item
-    existing_line_item = @sale.line_items.where(item_id: params[:item_id]).first
+    line_item = @sale.line_items.where(item_id: params[:item_id]).first
 
-    if existing_line_item.blank?
-      line_item = @sale.line_items.new(item_id: params[:item_id], quantity: 1)
+    if line_item.blank?
+      line_item = @sale.line_items.new(item_id: params[:item_id], quantity: 0)
       line_item.price = line_item.item.price
-      line_item.save
-
-    else
-      existing_line_item.quantity += 1
-      existing_line_item.save
-
+      line_item.save  
     end
-    remove_item_from_stock(params[:item_id], 1)
+
+    line_item.remove_item_from_stock(1)
 
     update_totals
 
@@ -83,14 +79,8 @@ class SalesController < ApplicationController
   # Remove Item
   def remove_item
     line_item = @sale.line_items.where(item_id: params[:item_id]).first
-    line_item.quantity -= 1
-    if line_item.quantity <= 0
-      line_item.destroy
-    else
-      line_item.save
-    end
-
-    return_item_to_stock(params[:item_id], 1)
+    
+    line_item.remove_item_from_stock(-1)
 
     update_totals
 
@@ -102,10 +92,8 @@ class SalesController < ApplicationController
   # Add one Item
   def add_item
     line_item = @sale.line_items.where(item_id: params[:item_id]).first
-    line_item.quantity += 1
-    line_item.save
 
-    remove_item_from_stock(params[:item_id], 1)
+    line_item.remove_item_from_stock(1)
 
     update_totals
 
@@ -219,17 +207,4 @@ class SalesController < ApplicationController
     render :ajax_reload
   end
 
-  def remove_item_from_stock(item_id, quantity)
-    item = Item.find(item_id)
-    item.stock_amount = item.stock_amount - quantity
-    item.amount_sold += quantity
-    item.save
-  end
-
-  def return_item_to_stock(item_id, quantity)
-    item = Item.find(item_id)
-    item.stock_amount = item.stock_amount + quantity
-    item.amount_sold -= quantity
-    item.save
-  end
 end
