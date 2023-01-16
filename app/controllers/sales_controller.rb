@@ -112,10 +112,10 @@ class SalesController < ApplicationController
 
     custom_item.save
 
-    custom_line_item = @sale.line_items.new(item_id: custom_item.id,
-                                            quantity: custom_item.stock_amount,
+    custom_line_item = @sale.line_items.create(item_id: custom_item.id,
+                                            quantity: 0,
                                             price: custom_item.price)
-    custom_line_item.save
+    custom_line_item.remove_item_from_stock(custom_item.stock_amount)
 
     update_totals
 
