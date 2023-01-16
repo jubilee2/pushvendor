@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+$(document).on('ready', function(){
 
   var item_search_timeoutId = 0;
 	$(document).on("keypress", '.item_search_input', function(){

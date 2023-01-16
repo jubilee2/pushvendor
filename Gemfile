@@ -3,7 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
-gem 'rails', '~> 6.1.0'
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.0.4"
+# Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 gem 'pg'
 
@@ -12,14 +14,14 @@ gem 'pg'
 # -----------------------------------------
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
 
 
 # -----------------------------------------
 # Formating Utilities
 # -----------------------------------------
 gem 'uglifier', '>= 1.3.0'
-gem 'jbuilder', '~> 2.7'
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
 
 
 # -----------------------------------------
@@ -38,7 +40,7 @@ gem 'will_paginate-bootstrap', '1.0.1'
 
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem "bootsnap", require: false
 
 
 group :doc do
@@ -52,27 +54,29 @@ group :development, :test do
   gem 'faker'
   gem 'database_cleaner', '1.5.1'
   gem 'letter_opener', '1.4.1'
+  # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'webdrivers', '~> 5.0', require: false
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console', '>= 4.1.0'
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'web-console'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   gem 'guard-rails', '0.7.2', require: false
   gem 'rubocop', '~> 1.42', require: false
   gem 'guard-rubocop'
   gem 'guard-rspec', '4.6.4', require: false
+  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
