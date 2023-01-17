@@ -81,8 +81,7 @@ group :development do
   gem 'guard-rubocop'
   gem 'guard-rspec', '4.6.4', require: false
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # gem 'spring'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
