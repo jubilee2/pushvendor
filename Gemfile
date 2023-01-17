@@ -12,14 +12,15 @@ gem 'pg'
 # -----------------------------------------
 # Javascript Resources
 # -----------------------------------------
-gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
 
 
 # -----------------------------------------
 # Formating Utilities
 # -----------------------------------------
-gem 'uglifier', '>= 1.3.0'
+gem 'terser'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -38,6 +39,9 @@ gem 'sass-rails', '>= 6'
 gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate-bootstrap', '1.0.1'
 
+
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
