@@ -32,9 +32,7 @@ $(document).on('ready', function(){
 		      data: { item_id: parseInt(input.value.split(".|")[0]), quantity: 1, sale_id: parseInt(sale_id.value)},
 		      dataType: "script",
 		      success: function() {
-		      	// prepare the search box for the new entry
 		      	input.value = "";
-		      	// console.log('line item created');
 		      }
 		    });
 		  }
