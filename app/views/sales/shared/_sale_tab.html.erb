@@ -6,14 +6,6 @@
     <%= form_for :search, :url => update_line_item_options_sale_path(@sale), :remote => true do |f| %>
       <div class="form-group">
         <%= f.text_field :item_name, :class => "form-control item_search_input awesomplete", list: 'items-list', :placeholder => "Search Items" %>
-        <datalist id="items-list">
-          <% @available_items.each do |itm| %>
-          <%= link_to "link1", "#",{:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %>
-
-            <!-- Don't remove the '.|' -->
-            <option value=""><%= itm.id %>.| <%= itm.name %> | stk amount: <%= itm.stock_amount %></option>
-          <% end %>
-        </datalist>
        
       </div>
       <div class="form-group">
