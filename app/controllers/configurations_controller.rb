@@ -6,8 +6,10 @@ class ConfigurationsController < ApplicationController
   def update
     if @configuration.update(configuration_params)
       flash[:notice] = 'Configurations have been successfully updated.'
+      redirect_to configurations_path
+    else
+      redirect_to configurations_path
     end
-    render action: 'index'
   end
 
   private

@@ -1,0 +1,6 @@
+en:
+  payment_types:
+    Paypal: paypal
+    Cash: cash 
+    Check: check 
+    Other: other

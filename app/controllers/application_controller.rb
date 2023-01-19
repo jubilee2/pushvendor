@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
   before_action :set_configurations
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: exception.message
+    respond_to do |format|
+      format.js { render plain: exception.message, status: :unauthorized }
+      format.html { redirect_to root_url, alert: exception.message }
+    end
   end
 
   private

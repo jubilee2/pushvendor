@@ -1,0 +1,6 @@
+en:
+  currencies:
+    'US Dollar (USD)': '$'
+    'EURO (EUR)': '€'
+    'Japanese yen (JPY)': '¥'
+    'Pound sterling (GBP)': '£'

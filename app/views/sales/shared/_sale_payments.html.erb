@@ -21,7 +21,7 @@
             <td><%= payment.payment_type %></td>
             <td><%= text_field_tag :amount, number_to_currency(payment.amount, unit: config.currency), id: nil, :class => "form-control", :readonly => true  %>
             </td>
-            <td><%= text_field_tag :amount, payment.created_at, id: nil, :class => "form-control", :readonly => true  %>
+            <td><%= text_field_tag :created_at, payment.created_at, id: nil, :class => "form-control", :readonly => true  %>
           </tr>
         <% end %>
       <% end %>

@@ -202,6 +202,21 @@ class SalesController < ApplicationController
     end
   end
 
+  def create_sale_with_product
+    @sale = Sale.create
+    item = Item.find(params[:item_id])
+
+    line_item = @sale.line_items.create(item: item,
+                    quantity: 0,
+                    price: item.price)
+
+    line_item.remove_item_from_stock(1)
+
+    update_totals
+
+    redirect_to controller: 'sales', action: 'edit', id: @sale.id
+  end
+
   private
 
   def ajax_refresh

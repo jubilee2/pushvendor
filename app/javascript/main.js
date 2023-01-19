@@ -1,4 +1,4 @@
-$(document).on('ready', function(){
+$(document).on('turbo:load', function(){
 
 
 	$(document).on("change", '.item_category_search_input', function(){
@@ -67,4 +67,8 @@ $(document).on('ready', function(){
     });
   }
 
+});
+
+$(document).ajaxError(function (e, xhr, settings) {
+  location.reload();
 });

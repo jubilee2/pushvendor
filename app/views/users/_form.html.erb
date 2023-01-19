@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <% unless @user.id.blank? || @user.id == 1 %>
+  <% unless @user.id.blank? %>
     <div class="panel panel-default">
       <div class="panel-heading">Permissions</div>
       <div class="panel-body">
@@ -65,12 +65,12 @@
                 Can view reports
               </label>
             </div>
-            <!-- <div class="checkbox">
+            <div class="checkbox">
               <label>
                 <%= f.check_box :can_update_sale_discount %>
                 Can give discounts
               </label>
-            </div> -->
+            </div> 
             <div class="checkbox">
               <label>
                 <%= f.check_box :can_remove_sales %>
