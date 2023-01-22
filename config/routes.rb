@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users
+      resources :items
+      resources :item_categories
+      resources :sales, only: [:index, :show]
+
+      root to: "items#index"
+    end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users
   root 'dashboard#index'

@@ -38,6 +38,7 @@ gem 'cancancan'
 gem 'sass-rails', '>= 6'
 gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate-bootstrap', '1.0.1'
+gem "administrate"
 
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
