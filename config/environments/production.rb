@@ -31,7 +31,7 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
-  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
+  config.assets.prefix = "#{ ENV['RAILS_RELATIVE_URL_ROOT'] }#{config.assets.prefix}" if  ENV['RAILS_RELATIVE_URL_ROOT']
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = 'http://assets.example.com'
