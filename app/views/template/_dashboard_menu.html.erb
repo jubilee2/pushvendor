@@ -1,7 +1,7 @@
 <div class="dashboard_menu">
 	<ul class="nav nav-pills">
-	  <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-	  <li><a href="/reports"><span class="glyphicon glyphicon-stats"></span> Reports</a></li>
-	  <li><a href="/configurations"><span class="glyphicon glyphicon-adjust"></span> Configuration</a></li>
+	  <li><%= link_to content_tag(:span, nil, class: 'glyphicon glyphicon-user') + " Users", users_path %></li>
+	  <li><%= link_to content_tag(:span, nil, class: 'glyphicon glyphicon-stats') + " Reports", reports_path %></li>
+	  <li><%= link_to content_tag(:span, nil, class: 'glyphicon glyphicon-user') + " Configuration", configurations_path %></li>
 	</ul>
 </div>
