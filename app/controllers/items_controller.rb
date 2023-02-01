@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
                                  :price,
                                  :stock_amount,
                                  :cost_price,
-                                 :item_category_id,
-                                 :published)
+                                 :published,
+                                 item_category_ids: [])
   end
 end

@@ -12,7 +12,7 @@ class ItemDashboard < Administrate::BaseDashboard
     amount_sold: Field::Number,
     cost_price: Field::Number.with_options(searchable: false, decimals: 2),
     description: Field::Text,
-    item_category: Field::BelongsTo,
+    item_categories: Field::HasMany,
     line_items: Field::HasMany,
     name: Field::String,
     price: Field::Number.with_options(searchable: false, decimals: 2),
@@ -31,7 +31,7 @@ class ItemDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     sku
     name
-    item_category
+    item_categories
     stock_amount
     amount_sold
     price
@@ -41,7 +41,7 @@ class ItemDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    item_category
+    item_categories
     sku
     name
     description
@@ -59,7 +59,7 @@ class ItemDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    item_category
+    item_categories
     sku
     name
     description

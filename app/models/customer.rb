@@ -3,4 +3,7 @@ class Customer < ApplicationRecord
 
   validates_presence_of :first_name, :last_name
   validates_format_of :email_address, with: URI::MailTo::EMAIL_REGEXP, allow_blank: true
+
+  scope :published, -> { where(published: true) }
+
 end

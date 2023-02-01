@@ -11,8 +11,8 @@ class SalesController < ApplicationController
   end
 
   def edit
-    @available_items = Item.all.where(published: true).limit(5)
-    @available_customers = Customer.all.where(published: true).limit(5)
+    @available_items = Item.published.limit(5)
+    @available_customers = Customer.published.limit(5)
   end
 
   def destroy
@@ -26,11 +26,11 @@ class SalesController < ApplicationController
   # searched Items
   def update_line_item_options
     if params[:search][:item_category].blank?
-      @available_items = Item.all.where('name LIKE ? AND published = true OR description LIKE ? AND published = true OR sku LIKE ? AND published = true', "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%").limit(5)
+      @available_items = Item.published.where('name LIKE ? OR description LIKE ? OR sku LIKE ?', "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%", "%#{params[:search][:item_name]}%").limit(5)
     elsif params[:search][:item_name].blank?
-      @available_items = Item.where(item_category_id: params[:search][:item_category]).limit(5)
+      @available_items = Item.published.joins(:item_categories).where(item_categories: {id: params[:search][:item_category]}).limit(5)
     else
-      @available_items = Item.all.where('name LIKE ? AND published = true AND item_category_id = ? OR description LIKE ? AND published = true AND item_category_id = ? OR sku LIKE ? AND published = true AND item_category_id = ?', "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}", "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}", "%#{params[:search][:item_name]}%", "#{params[:search][:item_category]}").limit(5)
+      @available_items = Item.published.where('items.name LIKE ? OR items.description LIKE ? OR items.sku LIKE ?', "%#{params[:search][:item_name]}%",  "%#{params[:search][:item_name]}%",  "%#{params[:search][:item_name]}%").joins(:item_categories).where(item_categories: {id: params[:search][:item_category]}).limit(5)
     end
 
     respond_to do |format|
@@ -40,7 +40,7 @@ class SalesController < ApplicationController
   end
 
   def update_customer_options
-    @available_customers = Customer.all.where('last_name LIKE ? AND published = true OR first_name LIKE ? AND published = true OR email_address LIKE ? AND published = true OR phone_number LIKE ? AND published = true', "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%").limit(5)
+    @available_customers = Customer.published.where('last_name LIKE ? OR first_name LIKE ? OR email_address LIKE ? OR phone_number LIKE ?', "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%", "%#{params[:search][:customer_name]}%").limit(5)
 
     respond_to do |format|
       format.js
@@ -105,8 +105,8 @@ class SalesController < ApplicationController
 
   def create_custom_item
     custom_item = Item.new(params.require(:item).permit(
-                             :name, :description, :item_category_id,
-                             :price, :stock_amount
+                             :name, :description,
+                             :price, :stock_amount, item_category_ids: []
                            ))
 
     custom_item.sku = "CI#{(rand(5..30) + rand(5..30)) * 11}_#{(rand(5..30) + rand(5..30)) * 11}"

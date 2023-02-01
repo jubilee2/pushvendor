@@ -18,7 +18,7 @@
             <tr class="<%= item.stock_amount > 0 ? '' : 'danger' %>">
               <td><%= item.sku %></td>
               <td><%= item.name %></td>
-              <td><%= item.item_category.blank? ? '-' : item.item_category.name %></td>
+              <td><%= item.item_categories.count==0 ? '-' : item.item_categories.pluck(:name) %></td>
               <td><%= item.stock_amount %></td>
               <td><%= item.amount_sold %></td>
               <td><%= number_to_currency(item.price , unit: config.currency)%></td>
