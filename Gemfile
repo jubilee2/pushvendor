@@ -23,6 +23,7 @@ gem "turbo-rails"
 gem 'terser'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+gem "roo", "~> 2.10.0"
 
 
 # -----------------------------------------

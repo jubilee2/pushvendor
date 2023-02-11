@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   root 'dashboard#index'
 
   resources :item_categories
-  resources :items
+  resources :items  do
+    collection do
+      post 'import'
+    end
+  end
 
   resources :reports do
     collection do
