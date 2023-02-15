@@ -15,6 +15,7 @@ class ItemDashboard < Administrate::BaseDashboard
     item_categories: Field::HasMany,
     line_items: Field::HasMany,
     name: Field::String,
+    note: Field::Text,
     price: Field::Number.with_options(searchable: false, decimals: 2),
     published: Field::Boolean,
     sku: Field::String,
@@ -45,6 +46,7 @@ class ItemDashboard < Administrate::BaseDashboard
     sku
     name
     description
+    note
     published
     price
     stock_amount
@@ -63,6 +65,7 @@ class ItemDashboard < Administrate::BaseDashboard
     sku
     name
     description
+    note
     published
     price
     stock_amount

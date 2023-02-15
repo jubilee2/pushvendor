@@ -62,7 +62,7 @@ class ItemsController < ApplicationController
 
       data.push({
         name: row['BookTitle'],
-        description: {
+        note: {
           BookID: row['BookID'],
           Supplier: row['Supplier'],
           LSMcatalog: row['LSMcatalog'],
