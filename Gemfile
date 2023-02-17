@@ -48,6 +48,7 @@ gem "importmap-rails"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+gem 'faraday'
 
 group :doc do
   gem 'sdoc', require: false
