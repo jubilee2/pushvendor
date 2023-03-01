@@ -25,6 +25,8 @@ class Ability
     if user.can_update_items == true
       can :manage, ItemCategory
       can :manage, Item
+      can :manage, Purchase
+      can :manage, ItemPurchase
     end
 
     # Define abilities for the passed in user here. For example:

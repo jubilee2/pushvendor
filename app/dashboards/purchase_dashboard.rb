@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ItemDashboard < Administrate::BaseDashboard
+class PurchaseDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,18 +9,14 @@ class ItemDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    amount_sold: Field::Number,
-    cost_price: Field::Number.with_options(searchable: false, decimals: 2),
-    description: Field::Text,
-    item_categories: Field::HasMany,
-    item_purchases: Field::HasMany,
-    line_items: Field::HasMany,
-    name: Field::String,
+    amount: Field::Number.with_options(searchable: false, decimals: 2),
+    item_purchases: Field::NestedHasMany.with_options(skip: :purchase),
     note: Field::Text,
-    price: Field::Number.with_options(searchable: false, decimals: 2),
-    published: Field::Boolean,
-    sku: Field::String,
-    stock_amount: Field::Number,
+    order_date: Field::DateTime,
+    received: Field::Boolean,
+    recived_date: Field::DateTime,
+    shipping_fee: Field::Number.with_options(searchable: false, decimals: 2),
+    tax: Field::Number.with_options(searchable: false, decimals: 2),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -31,30 +27,27 @@ class ItemDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    sku
-    name
-    item_categories
-    stock_amount
-    amount_sold
-    price
-    published
+    id
+    item_purchases
+    order_date
+    recived_date
+    amount
+    created_at
+    updated_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    item_categories
-    sku
-    name
-    description
-    note
-    published
-    price
-    stock_amount
-    cost_price
-    amount_sold
-    line_items
+    id
     item_purchases
+    order_date
+    received
+    recived_date
+    note
+    shipping_fee
+    tax
+    amount
     created_at
     updated_at
   ].freeze
@@ -63,16 +56,14 @@ class ItemDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    item_categories
-    sku
-    name
-    description
+    item_purchases
+    order_date
+    received
+    recived_date
     note
-    published
-    price
-    stock_amount
-    cost_price
-    amount_sold
+    shipping_fee
+    tax
+    amount
   ].freeze
 
   # COLLECTION_FILTERS
@@ -87,10 +78,10 @@ class ItemDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how items are displayed
+  # Overwrite this method to customize how purchases are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(item)
-    item.name
-  end
+  # def display_resource(purchase)
+  #   "Purchase ##{purchase.id}"
+  # end
 end

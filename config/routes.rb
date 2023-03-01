@@ -3,6 +3,7 @@ Rails.application.routes.draw do
       resources :users
       resources :items
       resources :item_categories
+      resources :purchases
       resources :sales, only: [:index, :show]
 
       root to: "items#index"

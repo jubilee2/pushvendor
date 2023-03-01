@@ -40,6 +40,7 @@ gem 'sass-rails', '>= 6'
 gem 'bootstrap-sass', '3.4.1'
 gem 'will_paginate-bootstrap', '1.0.1'
 gem "administrate"
+gem "administrate-field-nested_has_many"
 
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

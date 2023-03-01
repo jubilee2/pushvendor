@@ -1,4 +1,20 @@
 FactoryGirl.define do
+  factory :item_purchase do
+    item nil
+    purchase nil
+    quantity 1
+    price "9.99"
+    unit_price "9.99"
+  end
+  factory :purchase do
+    order_date "2023-02-17 22:51:08"
+    recived_date "2023-02-17 22:51:08"
+    note "MyText"
+    shipping_fee "9.99"
+    tax "9.99"
+    amount "9.99"
+    received false
+  end
   factory :account do
     email { Faker::Internet.email }
     password 'password'

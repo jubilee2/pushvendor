@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   has_many :line_items
   has_and_belongs_to_many :item_categories
+  has_many :item_purchases
+
   before_destroy { item_categories.clear }
 
   validates :sku, uniqueness: true, allow_blank: true
