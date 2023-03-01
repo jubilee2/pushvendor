@@ -8,6 +8,7 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    versions: Field::HasMany.with_options(class_name: "PaperTrail::Version"),
     id: Field::Number,
     can_remove_sales: Field::Boolean,
     can_update_configuration: Field::Boolean,
@@ -69,6 +70,7 @@ class UserDashboard < Administrate::BaseDashboard
     sign_in_count
     created_at
     updated_at
+    versions
   ].freeze
 
   # FORM_ATTRIBUTES

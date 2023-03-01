@@ -1,4 +1,5 @@
 class Payment < ApplicationRecord
+  has_paper_trail ignore: [:updated_at, :created_at]
   belongs_to :sale
 
   def amount_after_change

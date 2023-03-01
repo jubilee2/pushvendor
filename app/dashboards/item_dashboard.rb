@@ -8,6 +8,7 @@ class ItemDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    versions: Field::HasMany.with_options(class_name: "PaperTrail::Version"),
     id: Field::Number,
     amount_sold: Field::Number,
     cost_price: Field::Number.with_options(searchable: false, decimals: 2),
@@ -57,6 +58,7 @@ class ItemDashboard < Administrate::BaseDashboard
     item_purchases
     created_at
     updated_at
+    versions
   ].freeze
 
   # FORM_ATTRIBUTES

@@ -1,4 +1,5 @@
 class StoreConfiguration < ApplicationRecord
+  has_paper_trail
   def get_tax_rate
     tax_rate.blank? ? 0.00 : tax_rate.to_f * 0.01
   end

@@ -43,6 +43,12 @@ gem "administrate"
 gem "administrate-field-nested_has_many"
 
 
+# -----------------------------------------
+# Backend log
+# -----------------------------------------
+gem 'paper_trail'
+
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 

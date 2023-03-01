@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  has_paper_trail ignore: [:updated_at, :created_at]
   has_many :line_items
   has_and_belongs_to_many :item_categories
   has_many :item_purchases

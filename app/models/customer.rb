@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  has_paper_trail ignore: [:updated_at, :created_at]
   has_many :sales
 
   validates_presence_of :first_name, :last_name

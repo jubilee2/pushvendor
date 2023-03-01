@@ -1,4 +1,5 @@
 class Sale < ApplicationRecord
+  has_paper_trail ignore: [:updated_at, :created_at]
   belongs_to :customer, optional: true
   has_many :line_items, dependent: :destroy
   has_many :items, through: :line_items
@@ -51,5 +52,9 @@ class Sale < ApplicationRecord
     else
       0.00
     end
+  end
+
+  def all_versions
+    versions.or(PaperTrail::Version.where(item: line_items)).or(PaperTrail::Version.where(item: payments))
   end
 end

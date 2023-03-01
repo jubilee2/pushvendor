@@ -7,9 +7,10 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_user!
+    before_action :set_paper_trail_whodunnit
 
     def authorized_action?(_resource, _action_name)
-      can? _action_name, _resource
+      can? _action_name.to_sym, _resource
     end
 
     rescue_from Administrate::NotAuthorizedError do |exception|

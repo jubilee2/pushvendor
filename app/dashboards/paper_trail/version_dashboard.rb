@@ -1,20 +1,19 @@
 require "administrate/base_dashboard"
 
-class ItemCategoryDashboard < Administrate::BaseDashboard
+class PaperTrail::VersionDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
-  # Each different type represents an Administrate::Field object,
+  # Each different type represents an Administrate::Field changeset,
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    versions: Field::HasMany.with_options(class_name: "PaperTrail::Version"),
     id: Field::Number,
-    description: Field::Text,
-    items: Field::HasMany,
-    name: Field::String,
+    event: Field::String,
+    item: Field::Polymorphic,
+    changeset: Field::Text,
+    whodunnit: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,29 +22,27 @@ class ItemCategoryDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
-    name
-    description
+    event
+    changeset
+    whodunnit
+    created_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    name
-    description
-    items
+    id
+    event
+    item
+    changeset
+    whodunnit
     created_at
-    updated_at
-    versions
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    name
-    description
-    items
   ].freeze
 
   # COLLECTION_FILTERS
@@ -60,10 +57,10 @@ class ItemCategoryDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how item categories are displayed
+  # Overwrite this method to customize how versions are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(item_category)
-    item_category.name
-  end
+  # def display_resource(version)
+  #   "PaperTrail::Version ##{version.id}"
+  # end
 end

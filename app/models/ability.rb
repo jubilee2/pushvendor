@@ -8,6 +8,7 @@ class Ability
 
     if user.can_update_users == true
       can :manage, User
+      can :show, PaperTrail::Version, item_type: 'User'
     end
 
     if user.can_view_reports == true
@@ -21,12 +22,14 @@ class Ability
     unless user.can_update_sale_discount == true
       cannot :sale_discount, Sale
     end
+    can :show, PaperTrail::Version, item_type: ['Sale', 'Payment', 'LineItem']
 
     if user.can_update_items == true
       can :manage, ItemCategory
       can :manage, Item
       can :manage, Purchase
       can :manage, ItemPurchase
+      can :show, PaperTrail::Version, item_type: ['Item', 'ItemCategory', 'Purchase', 'ItemPurchase']
     end
 
     # Define abilities for the passed in user here. For example:

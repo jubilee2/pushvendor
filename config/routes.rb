@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       resources :item_categories
       resources :purchases
       resources :sales, only: [:index, :show]
+      namespace :paper_trail do
+        resources :versions, only: [:show]
+      end
 
       root to: "items#index"
     end
