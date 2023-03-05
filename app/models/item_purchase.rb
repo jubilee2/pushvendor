@@ -6,4 +6,14 @@ class ItemPurchase < ApplicationRecord
   def sub_total_price
     price * quantity
   end
+
+  def received
+    self.transaction do
+      reload
+      item.transaction do
+        item.stock_amount = item.stock_amount + quantity
+        item.save
+      end
+    end
+  end
 end

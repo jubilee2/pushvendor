@@ -1,5 +1,19 @@
 module Admin
   class PurchasesController < Admin::ApplicationController
+    def item_received
+      if requested_resource.item_received
+        redirect_to(
+          after_resource_updated_path(requested_resource),
+          notice: translate_with_resource("update.success"),
+        )
+      else
+        redirect_to(
+          after_resource_updated_path(requested_resource),
+          notice: 'error to mark item to received'
+        )
+      end
+    end
+    
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

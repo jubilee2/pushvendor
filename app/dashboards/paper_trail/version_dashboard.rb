@@ -11,6 +11,7 @@ class PaperTrail::VersionDashboard < Administrate::BaseDashboard
     id: Field::Number,
     event: Field::String,
     item: Field::Polymorphic,
+    item_type: Field::String,
     changeset: Field::Text,
     whodunnit: Field::String,
     created_at: Field::DateTime,
@@ -22,6 +23,7 @@ class PaperTrail::VersionDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    item_type
     event
     changeset
     whodunnit

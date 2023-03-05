@@ -33,6 +33,7 @@ class PurchaseDashboard < Administrate::BaseDashboard
     order_date
     recived_date
     amount
+    received
     created_at
     updated_at
   ].freeze
@@ -60,7 +61,6 @@ class PurchaseDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     item_purchases
     order_date
-    received
     recived_date
     note
     shipping_fee

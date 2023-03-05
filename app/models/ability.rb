@@ -27,8 +27,8 @@ class Ability
     if user.can_update_items == true
       can :manage, ItemCategory
       can :manage, Item
-      can :manage, Purchase
-      can :manage, ItemPurchase
+      can [:read, :create], Purchase
+      can [:update, :item_received, :destroy], Purchase, received: false
       can :show, PaperTrail::Version, item_type: ['Item', 'ItemCategory', 'Purchase', 'ItemPurchase']
     end
 

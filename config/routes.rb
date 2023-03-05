@@ -3,7 +3,11 @@ Rails.application.routes.draw do
       resources :users
       resources :items
       resources :item_categories
-      resources :purchases
+      resources :purchases do
+        member do
+          post :item_received
+        end
+      end
       resources :sales, only: [:index, :show]
       namespace :paper_trail do
         resources :versions, only: [:show]

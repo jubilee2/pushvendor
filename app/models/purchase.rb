@@ -27,4 +27,16 @@ class Purchase < ApplicationRecord
   def all_versions
     versions.or(PaperTrail::Version.where(item: item_purchases))
   end
+
+  def item_received
+    self.transaction do
+      reload
+      unless received
+        item_purchases.each do |item|
+          item.received
+        end
+        update received: true
+      end
+    end
+  end
 end
