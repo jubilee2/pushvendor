@@ -1,36 +1,48 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.0.rc1'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+ruby '2.7.4'
+
+gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
+gem 'puma', '~> 3.11'
 gem 'pg'
 
 # -----------------------------------------
 # Javascript Resources
 # -----------------------------------------
-gem 'coffee-rails', '4.1.1'
-gem 'jquery-rails', '4.1.0'
-gem 'turbolinks', '2.5.3'
+gem 'coffee-rails', '~> 4.2'
+gem 'jquery-rails'
+gem 'turbolinks', '~> 5'
 
 
 # -----------------------------------------
 # Formating Utilities
 # -----------------------------------------
-gem 'uglifier', '2.7.2'
-gem 'jbuilder', '2.4.1'
+gem 'uglifier', '>= 1.3.0'
+gem 'jbuilder', '~> 2.5'
 
 
 # -----------------------------------------
 # Authentication and Permissions
 # -----------------------------------------
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
-gem 'cancancan', '1.13.1'
+gem 'devise'
+gem 'cancancan'
 
 
 # -----------------------------------------
 # Layout and Rendering
 # -----------------------------------------
-gem 'sass-rails', '5.0.4'
+gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate-bootstrap', '1.0.1'
+
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 
 group :doc do
@@ -38,23 +50,34 @@ group :doc do
 end
 
 group :development, :test do
-  gem 'spring', '1.6.3'
-  gem 'byebug', '8.2.2'
-  gem 'rspec-rails', '3.1.0'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 4.1.0'
   gem 'factory_girl_rails', '4.6.0'
-  gem 'faker', '1.6.3'
+  gem 'faker'
   gem 'database_cleaner', '1.5.1'
   gem 'letter_opener', '1.4.1'
-  gem 'capybara', '2.6.2'
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
+end
+
+group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'webdrivers', '~> 5.0', require: false
 end
 
 group :development do
-  gem 'better_errors', '2.1.1'
-  gem 'binding_of_caller', '0.7.2'
-  gem 'web-console', '3.1.1'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'web-console'
   gem 'guard-rails', '0.7.2', require: false
   gem 'rubocop', '0.37.2', require: false
   gem 'guard-rubocop', '1.2.0'
   gem 'guard-rspec', '4.6.4', require: false
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
