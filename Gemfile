@@ -72,7 +72,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'web-console'
   gem 'guard-rails', '0.7.2', require: false
-  gem 'rubocop', '0.37.2', require: false
+  gem 'rubocop', '0.48.1', require: false
   gem 'guard-rubocop', '1.2.0'
   gem 'guard-rspec', '4.6.4', require: false
   gem 'spring'
