@@ -3,22 +3,24 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
+  <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <meta name="robots" content="noindex">
       <meta name="googlebot" content="noindex">
       <title><%= @configurations.store_name.blank? ? "PushVendor Point of Sale" : @configurations.store_name %></title>
       <meta name="description" content="<%= @configurations.store_description.blank? ? "PushVendor Point of Sale" : @configurations.store_description %>">
-      <meta name="viewport" content ="width=device-width; initial-scale=1.0;">
+      <meta name="viewport" content ="width=device-width, initial-scale=1.0">
 
-      <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 
-		  <%= csrf_meta_tags %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-    </head>
-    
-    <body>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
 
     	<% if user_signed_in? %>
     		<%= render :partial => 'template/menu' %>
@@ -38,11 +40,6 @@
         <% end %>
 			</div>
 
-  
-
-      <%= javascript_include_tag :application, "data-turbolinks-track" => true %>
-
-
       <%= yield :javascript %>
-    </body>
+  </body>
 </html>

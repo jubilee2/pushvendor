@@ -1,8 +1,7 @@
 desc 'Load Pushvendor default configuration data.'
 
 namespace :pushvendor do
-  task :load_default_data => :environment do
-  	Rake::Task["db:migrate"].invoke
-    StoreConfiguration.create(id: 1, currency: "$")
+  for i in (1..2000)
+    Item.create(:sku => i, :name => "#{i}Name", :price => "12.00", :stock_amount => "100")
   end
 end

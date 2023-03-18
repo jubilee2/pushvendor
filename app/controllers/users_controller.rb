@@ -39,11 +39,10 @@ class UsersController < ApplicationController
   def destroy
     if @user.id == 1
       flash[:notice] = "You can't delete the main administrator!"
-      redirect_to users_url
     else
       @user.destroy
-      redirect_to users_url
     end
+    redirect_to users_url
   end
 
   private
@@ -62,7 +61,7 @@ class UsersController < ApplicationController
                                  :can_update_sale_discount,
                                  :can_remove_sales)
   end
-  
+
   def user_without_password_params
     params.require(:user).permit(:email,
                                  :username,

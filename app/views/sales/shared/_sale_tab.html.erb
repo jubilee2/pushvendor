@@ -3,7 +3,7 @@
     <h4 class="text-primary"><span class="glyphicon glyphicon-search"></span> Find</h4>
 
     <hr />
-    <%= form_for :search, :url => url_for(:controller => "sales", :action => "update_line_item_options", :format => :js), :method => "get", :remote => true do |f| %>
+    <%= form_for :search, :url => update_line_item_options_sale_path(@sale), :remote => true do |f| %>
       <div class="form-group">
         <%= f.text_field :item_name, :class => "form-control item_search_input awesomplete", list: 'items-list', :placeholder => "Search Items" %>
         <datalist id="items-list">
@@ -19,7 +19,6 @@
       <div class="form-group">
         <%= f.collection_select :item_category, ItemCategory.all, :id, :name, {prompt: "Select a category"}, {class: "form-control item_category_search_input"}  %>
       </div>
-      <%= f.hidden_field :sale_id, :value => @sale.id %>
       <%= submit_tag "search", :class => "btn btn-primary btn-lg item_search" %>
     <% end %>
     <button class="btn" data-toggle="modal" data-target="#customItem">
@@ -34,25 +33,22 @@
 </div>
 
 
-<%= form_for(@sale) do |f| %>
-  <%= render :partial => 'template/form_errors', :object => @sale %>
+<%= render :partial => 'template/form_errors', :object => @sale %>
 
-  <h4 class="text-primary"><span class="glyphicon glyphicon-tags"></span> Items</h4>
-  <hr class="hidden-print" />
-  <div class="added_items">
-    <%= render :partial => 'sales/shared/added_items', :locals=>{:f=>f} %>
-  </div>
+<h4 class="text-primary"><span class="glyphicon glyphicon-tags"></span> Items</h4>
+<hr class="hidden-print" />
+<div class="added_items">
+  <%= render :partial => 'sales/shared/added_items' %>
+</div>
 
-  <div class="row">
-    <div class="sale_totals col-sm-4 hidden-print">
-      <%= render :partial => 'sales/shared/sale_totals', :locals=>{:f=>f} %>
-    </div>
-    <div class="sale_payments col-sm-8">
-      <%= render :partial => 'sales/shared/sale_payments', :locals => {:f => f} %>
-    </div>  
+<div class="row">
+  <div class="sale_totals col-sm-4 hidden-print">
+    <%= render :partial => 'sales/shared/sale_totals' %>
   </div>
-  <%= f.submit 'Update Sale', :class => "btn btn-success btn-lg sale_submit" %>
-<% end %>
+  <div class="sale_payments col-sm-8">
+    <%= render :partial => 'sales/shared/sale_payments' %>
+  </div>  
+</div>
 
 
 <div class="print_totals visible-print">

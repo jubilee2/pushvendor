@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
-    @items = Item.paginate(page: params[:page], per_page: 20).where(published: true)
+    @items = @items.paginate(page: params[:page], per_page: 20).where(published: true)
   end
 
   def new
@@ -43,17 +43,7 @@ class ItemsController < ApplicationController
     redirect_to items_url
   end
 
-  def search
-    @items = Item.all.where('name ILIKE ?', "%#{params[:search][:item_name]}%")
-  end
-
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_item
-    @item = Item.find(params[:id])
-    @categories = ItemCategory.all
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_params

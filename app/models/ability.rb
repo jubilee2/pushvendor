@@ -2,27 +2,30 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     if user.can_update_configuration == true
-        can :manage, StoreConfiguration
+      can :manage, StoreConfiguration
     end
 
     if user.can_update_users == true
-        can :manage, User
+      can :manage, User
     end
 
     if user.can_view_reports == true
-        # can :manage, Report
+      can :manage, :reports
     end
 
-    if user.can_update_sale_discount == true
+    can :manage, Sale
+    unless user.can_remove_sales == true
+      cannot :destroy, Sale
+    end
+    unless user.can_update_sale_discount == true
+      cannot :sale_discount, Sale
     end
 
-    if user.can_remove_sales == true
-        can :manage, Sale
+    if user.can_update_items == true
+      can :manage, ItemCategory
+      can :manage, Item
     end
-
-
 
     # Define abilities for the passed in user here. For example:
     #
@@ -33,12 +36,12 @@ class Ability
     #     can :read, :all
     #   end
     #
-    # The first argument to `can` is the action you are giving the user 
+    # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
     # here are :read, :create, :update and :destroy.
     #
-    # The second argument is the resource the user can perform the action on. 
+    # The second argument is the resource the user can perform the action on.
     # If you pass :all it will apply to every resource. Otherwise pass a Ruby
     # class of the resource.
     #
